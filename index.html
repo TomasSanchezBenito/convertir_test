@@ -124,8 +124,9 @@
   <img src="${logoBase64}" alt="Logo" style="max-width:150px; margin-bottom:20px;">
   <h1>${titulo}</h1>
   <div id="quiz">
-    <div id="question"></div>
-    <div id="options"></div>
+  <div id="progress" style="margin-bottom:10px; font-size:14px; color: #666;"></div>
+  <div id="question" style="font-weight:bold;"></div>
+  <div id="options"></div>
     <button id="check-button">Comprobar</button>
     <button id="next-button" style="display:none;">Siguiente</button>
     <div id="results" style="margin-top:20px; font-weight:bold;"></div>
@@ -147,6 +148,10 @@ const results = document.getElementById('results');
 function mostrarPregunta() {
   selected = null;
   const p = preguntas[current];
+
+  // Nueva línea para mostrar progreso
+  document.getElementById('progress').textContent = 'Pregunta ' + (current + 1) + ' de ' + preguntas.length;
+
   questionDiv.textContent = p.pregunta;
   optionsDiv.innerHTML = '';
   p.opciones.forEach((opcion, idx) => {
@@ -165,6 +170,7 @@ function mostrarPregunta() {
   nextBtn.style.display = 'none';
   results.textContent = '';
 }
+
 
 checkBtn.onclick = () => {
   if (!selected) return alert("Selecciona una opción.");
